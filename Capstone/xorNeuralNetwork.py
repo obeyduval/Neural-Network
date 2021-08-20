@@ -1,4 +1,4 @@
-# Capstone Project
+# Capstone xOR Neural Network Artifact
 # C1C Timothy Jackson, C1C Jake Lee, C1C Christopher Meixsell
 # XOR Neural Network
 # Novotny Article (Machine Learning)
