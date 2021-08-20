@@ -1,6 +1,6 @@
 # Capstone Project
-# C1C Timothy Jackson, C1C Jake Lee, C1C Christopher Meizsell
-# Neural Network
+# C1C Timothy Jackson, C1C Jake Lee, C1C Christopher Meixsell
+# XOR Neural Network
 
 # math
 import numpy as np
@@ -128,23 +128,28 @@ class OurNeuralNetwork:
 
 # Define dataset
 data = np.array([
-  [-2, -1],  # Alice
-  [25, 6],   # Bob
-  [17, 4],   # Charlie
-  [-15, -6], # Diana
+  [0, 0],  # and
+  [0, 1],  # xor
+  [1, 0],  # xor
+  [1, 1],  # not xor
 ])
 all_y_trues = np.array([
-  1, # Alice
-  0, # Bob
-  0, # Charlie
-  1, # Diana
+  0,  # false
+  1,  # true
+  1,  # true
+  0,  # false
 ])
 
 # Train our neural network!
 network = OurNeuralNetwork()
 network.train(data, all_y_trues)
 
-vic = np.array([5, 1])  # 140 pounds, 67 inches
-duval = np.array([61, 6])  # 196 pounds, 72 inches
-print("Vic: %.3f" % network.feedforward(vic))  # should be close to 1
-print("Duval: %.3f" % network.feedforward(duval))  # should be close to 0
+notXorExample = np.array([0, 0])  # false
+xorExample2 = np.array([0, 1])  # true
+xorExample = np.array([1, 0])  # true
+notXorExample2 = np.array([1, 1])  # false
+
+print("0 0: %.2f" % network.feedforward(notXorExample))  # should be close to 0
+print("0 1: %.2f" % network.feedforward(xorExample2))  # should be close to 1
+print("1 0: %.2f" % network.feedforward(xorExample))  # should be close to 1
+print("1 1: %.2f" % network.feedforward(notXorExample2))  # should be close to 0
