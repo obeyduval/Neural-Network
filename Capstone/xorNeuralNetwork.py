@@ -134,31 +134,32 @@ class OurNeuralNetwork:
                 loss = mse_loss(all_y_trues, y_preds)
                 print("Epoch %d loss: %.3f" % (epoch, loss))
 
+if __name__ == '__main__':
+    # Define dataset
+    data = np.array([
+        [0, 0],  # and
+        [0, 1],  # xor
+        [1, 0],  # xor
+        [1, 1]  # not xor
+    ])
+    all_y_trues = np.array([
+        0,  # false
+        1,  # true
+        1,  # true
+        0  # false
+    ])
 
-# Define dataset
-data = np.array([
-  [0, 0],  # and
-  [0, 1],  # xor
-  [1, 0],  # xor
-  [1, 1]  # not xor
-])
-all_y_trues = np.array([
-  0,  # false
-  1,  # true
-  1,  # true
-  0  # false
-])
+    # Train our neural network!
+    network = OurNeuralNetwork()
+    network.train(data, all_y_trues)
 
-# Train our neural network!
-network = OurNeuralNetwork()
-network.train(data, all_y_trues)
+    notXorExample = np.array([0, 0])  # false
+    xorExample2 = np.array([0, 1])  # true
+    xorExample = np.array([1, 0])  # true
+    notXorExample2 = np.array([1, 1])  # false
 
-notXorExample = np.array([0, 0])  # false
-xorExample2 = np.array([0, 1])  # true
-xorExample = np.array([1, 0])  # true
-notXorExample2 = np.array([1, 1])  # false
+    print("0 0: %.2f" % network.feedforward(notXorExample))  # should be close to 0
+    print("0 1: %.2f" % network.feedforward(xorExample2))  # should be close to 1
+    print("1 0: %.2f" % network.feedforward(xorExample))  # should be close to 1
+    print("1 1: %.2f" % network.feedforward(notXorExample2))  # should be close to 0
 
-print("0 0: %.2f" % network.feedforward(notXorExample))  # should be close to 0
-print("0 1: %.2f" % network.feedforward(xorExample2))  # should be close to 1
-print("1 0: %.2f" % network.feedforward(xorExample))  # should be close to 1
-print("1 1: %.2f" % network.feedforward(notXorExample2))  # should be close to 0
