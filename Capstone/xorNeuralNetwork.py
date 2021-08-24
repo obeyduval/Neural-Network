@@ -4,6 +4,8 @@
 # Novotny Article (Machine Learning)
 
 # math
+import random
+
 import numpy as np
 
 
@@ -66,11 +68,17 @@ class OurNeuralNetwork:
         - all_y_trues is a numpy array with n elements.
         Elements in all_y_trues correspond to those in data.
         """
-        learn_rate = .5
-        epochs = 1000  # number of times to loop through the entire dataset
+        learn_rate = .1
+        epochs = 10000  # number of times to loop through the entire dataset
 
         for epoch in range(epochs):
-            for x, y_true in zip(data, all_y_trues):
+
+            shuffler = np.random.permutation(len(data))
+            shuffled_data = data[shuffler]
+            shuffled_all_y_trues = all_y_trues[shuffler]
+
+            for x, y_true in zip(shuffled_data, shuffled_all_y_trues):
+
                 # Do a feedforward (we'll need these values later)
                 sum_h1 = self.w1 * x[0] + self.w2 * x[1] + self.b1
                 h1 = sigmoid(sum_h1)
@@ -121,7 +129,7 @@ class OurNeuralNetwork:
                 self.b3 -= learn_rate * d_L_d_ypred * d_ypred_d_b3
 
             # --- Calculate total loss at the end of each epoch
-            if epoch % 10 == 0:
+            if epoch % 100 == 0:
                 y_preds = np.apply_along_axis(self.feedforward, 1, data)
                 loss = mse_loss(all_y_trues, y_preds)
                 print("Epoch %d loss: %.3f" % (epoch, loss))
@@ -132,13 +140,13 @@ data = np.array([
   [0, 0],  # and
   [0, 1],  # xor
   [1, 0],  # xor
-  [1, 1],  # not xor
+  [1, 1]  # not xor
 ])
 all_y_trues = np.array([
   0,  # false
   1,  # true
   1,  # true
-  0,  # false
+  0  # false
 ])
 
 # Train our neural network!
